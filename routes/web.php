@@ -19,7 +19,7 @@ use App\Http\Controllers\Auth\LoginRegisterController;
 Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');
 
 // Routes for book management, restricted to authenticated users with the 'admin' role
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['admin'])->group(function () {
     Route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
     Route::post('/buku', [BukuController::class, 'store'])->name('buku.store');
     Route::get('/buku/ubah/{id}', [BukuController::class, 'edit'])->name('buku.edit');

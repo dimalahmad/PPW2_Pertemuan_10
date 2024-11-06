@@ -18,6 +18,7 @@
                     <h1 class="text-center mb-4">INVENTORY BUKU</h1>
 
                     <!-- Tombol untuk menambah buku dan pencarian -->
+                    @auth
                         <div class="mb-3 d-flex justify-content-between align-items-center">
                         @if(auth()->check() && auth()->user()->level == 'admin')
                             <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</a>
@@ -28,6 +29,7 @@
                                 <button type="submit" class="btn btn-outline-secondary">Cari</button>
                             </form>
                         </div>
+                    @endauth
 
                     <!-- Tabel data buku -->
                     <div class="table-responsive">
