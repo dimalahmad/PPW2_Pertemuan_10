@@ -11,13 +11,18 @@ class AdminMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->level == 'admin') {
-            return $next($request);
+        // Check if the user is authenticated and has the 'admin' level
+        if (auth()->check() && auth()->user()->level === 'admin') {
+            return $next($request); // Allow access
         }
-        return redirect('/home')->with('error', 'Access Denied');
-    }    
+
+        // Redirect non-admin users to the home page with an error message
+        return redirect('buku')->with('error', 'Access Denied: Admins Only');
+    }
 }
